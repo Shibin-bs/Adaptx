@@ -20,60 +20,50 @@ const puppeteer = require('C:/Adaptx/frontend/node_modules/puppeteer-core');
     errors.push(`[Page Error] ${err.message}`);
   });
 
+  console.log('=== SETTING DEMO AUTHENTICATION SESSION ===');
+  await page.goto('http://localhost:5173/', { waitUntil: 'domcontentloaded' });
+  await page.evaluate(() => {
+    localStorage.setItem(
+      'adaptx_demo_session',
+      JSON.stringify({
+        astronautId: 'ASTRO001',
+        name: 'Dr. Sarah Chen',
+        role: 'Mission Commander & Flight Surgeon',
+        mission: 'ARTEMIS-VII / ISS EXPEDITION 74',
+        clearanceLevel: 4,
+        loginTimestamp: new Date().toISOString(),
+      })
+    );
+  });
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await new Promise((r) => setTimeout(r, 1000));
+
   const routes = [
-    { path: '/', title: 'Mission Dashboard', selector: '.font-display' },
-    { path: '/adaptation', title: 'Adaptation Engine', selector: 'text/PHYSIOLOGICAL ADAPTATION ENGINE' },
-    { path: '/datasets', title: 'Dataset Explorer', selector: 'text/NASA OPEN SCIENCE & MISSION DATASET EXPLORER' },
-    { path: '/health', title: 'Health Monitoring', selector: 'text/REAL-TIME BIOSENSOR TELEMETRY' },
-    { path: '/analytics', title: 'Predictive Analytics', selector: 'text/PREDICTIVE PHYSIOLOGICAL ANALYTICS' },
-    { path: '/simulator', title: 'Counterfactual Simulator', selector: 'text/PHYSIOLOGICAL REVERSE ENGINEERING' },
-    { path: '/models', title: 'Model Performance', selector: 'text/PREDICTIVE MODEL PERFORMANCE' },
-    { path: '/digital-twin', title: 'Digital Twin Workstation', selector: 'text/ANATOMICAL DIGITAL TWIN' },
+    { path: '/', title: 'Cinematic Earth Landing Page' },
+    { path: '/dashboard', title: 'Mission Dashboard (3D Anatomy)' },
+    { path: '/profile', title: 'Astronaut Profile' },
+    { path: '/digital-twin', title: 'Digital Twin Workstation' },
+    { path: '/health', title: 'Health Monitoring (1Hz Stream)' },
+    { path: '/analytics', title: 'Predictive Analytics (14D LSTM)' },
+    { path: '/earth-space', title: 'Earth vs Space Reconstruction' },
+    { path: '/environment', title: 'Environmental & ECLSS Analysis' },
+    { path: '/adaptation', title: 'Adaptation Engine (XGBoost ARI)' },
+    { path: '/simulator', title: 'Counterfactual Simulator' },
+    { path: '/datasets', title: 'NASA Dataset Explorer' },
+    { path: '/models', title: 'Model Performance & Benchmarks' },
+    { path: '/settings', title: 'System Settings' },
   ];
 
-  console.log('=== VERIFYING ALL ADAPT-X ROUTES ===');
+  console.log('=== VERIFYING ALL 13 ADAPT-X WORKSTATIONS ===');
 
   for (const route of routes) {
     try {
       console.log(`\nTesting ${route.title} (${route.path})...`);
       await page.goto(`http://localhost:5173${route.path}`, { waitUntil: 'domcontentloaded', timeout: 15000 });
-      await new Promise((r) => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 1500));
 
-      const pageTitle = await page.title();
-      const contentPresent = await page.evaluate(() => document.body.innerText.length > 200);
-
-      console.log(`✓ ${route.title} loaded! Body length: ${await page.evaluate(() => document.body.innerText.length)} chars`);
-
-      if (route.path === '/adaptation') {
-        await page.screenshot({ path: 'C:\\Adaptx\\screenshot_adaptation_page.png' });
-        console.log('Saved screenshot_adaptation_page.png');
-
-        // Test clicking tab 'Interactive Inference Lab'
-        await page.evaluate(() => {
-          const btns = Array.from(document.querySelectorAll('button'));
-          const btn = btns.find(b => b.textContent.includes('Interactive Inference Lab'));
-          if (btn) btn.click();
-        });
-        await new Promise((r) => setTimeout(r, 1000));
-        await page.screenshot({ path: 'C:\\Adaptx\\screenshot_adaptation_inference.png' });
-        console.log('Saved screenshot_adaptation_inference.png');
-      }
-
-      if (route.path === '/datasets') {
-        await page.screenshot({ path: 'C:\\Adaptx\\screenshot_datasets_page.png' });
-        console.log('Saved screenshot_datasets_page.png');
-
-        // Test clicking tab 'Mission Telemetry (720 Records)'
-        await page.evaluate(() => {
-          const btns = Array.from(document.querySelectorAll('button'));
-          const btn = btns.find(b => b.textContent.includes('Mission Telemetry'));
-          if (btn) btn.click();
-        });
-        await new Promise((r) => setTimeout(r, 1000));
-        await page.screenshot({ path: 'C:\\Adaptx\\screenshot_datasets_telemetry.png' });
-        console.log('Saved screenshot_datasets_telemetry.png');
-      }
-
+      const bodyLength = await page.evaluate(() => document.body.innerText.length);
+      console.log(`✓ ${route.title} loaded! Body text: ${bodyLength} characters`);
     } catch (e) {
       console.error(`✗ Error on ${route.title}:`, e.message);
       errors.push(`[Route Error] ${route.path}: ${e.message}`);
@@ -82,11 +72,11 @@ const puppeteer = require('C:/Adaptx/frontend/node_modules/puppeteer-core');
 
   await browser.close();
 
-  console.log('\n=== TEST SUMMARY ===');
+  console.log('\n=== COMPLETE SYSTEM SUITE RESULT ===');
   if (errors.length === 0) {
-    console.log('✓ All 8 routes loaded with ZERO console errors or page crashes!');
+    console.log('✓ All 13 routes loaded with ZERO console errors or page crashes!');
   } else {
-    console.log(`Total errors encountered: ${errors.length}`);
-    errors.forEach((e) => console.log(e));
+    console.log(`Total errors: ${errors.length}`);
+    errors.forEach(e => console.log(e));
   }
 })();
