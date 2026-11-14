@@ -87,3 +87,24 @@ async def export_telemetry_csv():
         media_type="text/csv",
         filename="adaptx_mission_expedition_74_telemetry.csv"
     )
+
+@router.get("/telemetry-samples")
+async def get_telemetry_samples(limit: int = 50, offset: int = 0):
+    """Return paginated samples of the processed 180-day mission telemetry dataset."""
+    csv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'datasets', 'processed', 'preprocessed_telemetry.csv'))
+    if not os.path.exists(csv_path):
+        csv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'datasets', 'synthetic', 'mission_expedition_74.csv'))
+    if not os.path.exists(csv_path):
+        raise HTTPException(status_code=404, detail="Processed telemetry dataset not found.")
+        
+    import pandas as pd
+    df = pd.read_csv(csv_path)
+    total_records = len(df)
+    subset = df.iloc[offset:offset + limit].fillna(0)
+    records = subset.to_dict(orient="records")
+    return {
+        "total": total_records,
+        "offset": offset,
+        "limit": limit,
+        "records": records
+    }
