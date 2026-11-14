@@ -1,0 +1,84 @@
+{
+  "repository": "NASA Open Science Data Repository (OSDR)",
+  "version": "2026.1",
+  "disclaimer": "Public NASA Open Science metadata integrated for mission science planning and reverse engineering validation.",
+  "studies": [
+    {
+      "id": "NASA-OSDR-OSD-379",
+      "accession": "OSD-379",
+      "title": "Inspiration4 Civilian Spaceflight Multi-Omics and Physiological Atlas",
+      "mission": "Inspiration4 (Inaugural all-civilian orbital mission to 585 km)",
+      "principal_investigators": ["Dr. Christopher Mason", "Dr. Afshin Beheshti"],
+      "assays": [
+        "Single-Cell RNA-Seq",
+        "Spatial Transcriptomics",
+        "Plasma Proteomics",
+        "Metabolomics",
+        "Telomere Length Terminal Restriction Fragment Analysis",
+        "Cognitive Test Battery (Cognition)"
+      ],
+      "organism": "Homo sapiens",
+      "subjects_count": 4,
+      "timepoints": ["L-90", "L-44", "L-3", "FD1", "FD2", "FD3", "R+0", "R+1", "R+7", "R+30", "R+90"],
+      "findings": [
+        "Rapid telomere elongation during spaceflight followed by shortening upon Earth return",
+        "Immune activation and cytokine storm signature (IL-6, TNF-alpha) peaking in early flight",
+        "Cell-free DNA (cfDNA) mitochondrial signatures indicating cellular stress",
+        "Transcriptomic reversion towards pre-flight baseline within 90 days post-landing"
+      ],
+      "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-379",
+      "status": "INGESTED_INDEXED"
+    },
+    {
+      "id": "NASA-OSDR-OSD-569",
+      "accession": "OSD-569",
+      "title": "NASA Spaceflight Standard Measures Cross-Mission Longitudinal Repository",
+      "mission": "International Space Station (ISS Expeditions 50 through 71)",
+      "principal_investigators": ["NASA Human Research Program (HRP)"],
+      "assays": [
+        "High-Resolution Peripheral Quantitative Computed Tomography (HR-pQCT)",
+        "Dual-energy X-ray Absorptiometry (DEXA)",
+        "Optical Coherence Tomography (OCT) Retinal Nerve Fiber Layer",
+        "Continuous 48-Hour Holter ECG Monitoring",
+        "Lower Body Negative Pressure (LBNP) Orthostatic Testing",
+        "Actigraphy Sleep Monitoring"
+      ],
+      "organism": "Homo sapiens",
+      "subjects_count": 42,
+      "timepoints": ["Pre-flight (L-180 to L-30)", "In-flight (Monthly FD30-FD180)", "Post-flight (R+0 to R+365)"],
+      "findings": [
+        "Trabecular bone loss blunted to 0.7-0.9% per month with ARED heavy resistive protocol",
+        "Optic disc edema (SANS) observed in 16% of long-duration male crewmembers",
+        "Plasma volume contraction of 12-15% within 72 hours of microgravity insertion",
+        "Post-landing orthostatic intolerance mitigated by isotonic saline loading protocols"
+      ],
+      "url": "https://osdr.nasa.gov/bio/repo/data/studies/OSD-569",
+      "status": "INGESTED_INDEXED"
+    },
+    {
+      "id": "NASA-TWINS-STUDY-001",
+      "accession": "OSD-254",
+      "title": "NASA Twins Study: Longitudinal Multi-Omics Comparison Across One Year in Space",
+      "mission": "ISS One-Year Mission (340 days aboard ISS vs Ground Twin)",
+      "principal_investigators": ["NASA Twins Study Consortium (10 Specialized Research Teams)"],
+      "assays": [
+        "Whole Genome Sequencing (WGS)",
+        "Targeted Metabolomics",
+        "T-Cell Receptor Repertoire Sequencing",
+        "Carotid Ultrasound Intima-Media Thickness (IMT)",
+        "Cognitive Performance Battery"
+      ],
+      "organism": "Homo sapiens",
+      "subjects_count": 2,
+      "timepoints": ["Pre-flight (12 months)", "In-flight (340 days)", "Post-flight (6 months)"],
+      "findings": [
+        "93% of spaceflight-induced gene expression alterations normalized within 6 months post-landing",
+        "Persistent chromosomal inversions and translocations identified in lymphocyte populations",
+        "Subtle cognitive processing speed reduction observed after mission landing",
+        "Demonstrated feasibility of long-duration deep space exploration missions"
+      ],
+      "url": "https://www.nasa.gov/twins-study",
+      "status": "INGESTED_INDEXED"
+    }
+  ]
+}

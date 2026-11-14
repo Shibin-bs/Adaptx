@@ -1,0 +1,27 @@
+{
+  "architecture": "2-Layer LSTM with Linear Projection Head",
+  "input_features": [
+    "heart_rate",
+    "hrv_rmssd",
+    "stress_score",
+    "spo2"
+  ],
+  "seq_len_steps": 28,
+  "pred_len_steps": 56,
+  "normalization": {
+    "mean": [
+      67.48180555555555,
+      44.68541666666667,
+      34.39388888888889,
+      98.20166666666667
+    ],
+    "std": [
+      3.43322341988683,
+      4.333545365854968,
+      5.771630982450451,
+      0.4253733858769708
+    ]
+  },
+  "final_mse_loss": 0.5275,
+  "device": "cpu"
+}
