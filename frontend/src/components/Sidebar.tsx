@@ -85,11 +85,11 @@ export default function Sidebar() {
             Navigation
           </div>
         )}
-        {navItems.map(({ to, icon: Icon, label, exact }) => (
+        {navItems.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
             to={to}
-            end={exact}
+            end={to === '/dashboard'}
             title={isCollapsed ? label : undefined}
             className={({ isActive }) =>
               `w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-xs font-medium transition-all duration-200 group ${
