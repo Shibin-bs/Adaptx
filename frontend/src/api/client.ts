@@ -50,6 +50,8 @@ export const runCounterfactual = (params: {
 // Dataset Endpoints
 export const fetchDatasetRegistry = () => apiClient.get('/api/datasets/registry').then((r) => r.data)
 export const fetchNasaStudy = (studyId: string) => apiClient.get(`/api/datasets/nasa/${studyId}`).then((r) => r.data)
+export const fetchTelemetrySamples = (limit = 50, offset = 0) =>
+  apiClient.get('/api/datasets/telemetry-samples', { params: { limit, offset } }).then((r) => r.data)
 
 // Model Performance Endpoints
 export const fetchModelBenchmarks = () => apiClient.get('/api/models/benchmarks').then((r) => r.data)
