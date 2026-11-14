@@ -6,9 +6,6 @@ import {
   AlertTriangle,
   Clock,
   Radio,
-  CheckCircle2,
-  TrendingDown,
-  TrendingUp,
 } from 'lucide-react'
 import {
   LineChart,
@@ -19,7 +16,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
-import { fetchMetrics, fetchMetricHistory, getTelemetryWebSocketUrl } from '../api/client'
+import { fetchMetricHistory, getTelemetryWebSocketUrl } from '../api/client'
 
 const MOCK_ANOMALIES = [
   { id: 1, time: '12:44:10 UTC', severity: 'WARNING', metric: 'HRV (RMSSD)', value: '38 ms', message: 'Sympathetic tone elevation exceeds nominal circadian bound.' },

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import HumanHologram from '../components/HumanHologram'
 import {
-  Activity,
   Box,
   Heart,
   Brain,

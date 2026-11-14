@@ -4,10 +4,7 @@ import {
   TrendingUp,
   Eye,
   ShieldAlert,
-  Brain,
   Activity,
-  Calendar,
-  Layers,
 } from 'lucide-react'
 import {
   AreaChart,
@@ -38,6 +35,7 @@ export default function PredictiveAnalytics() {
   }))
 
   const chartData = projections?.[selectedSignal] || defaultTimeline
+  const sansRiskPercent = sansData?.risk_score ? sansData.risk_score : 18.4
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4 p-4 lg:p-6 font-mono text-xs select-none">
@@ -80,12 +78,12 @@ export default function PredictiveAnalytics() {
           </div>
 
           <div className="flex items-baseline justify-between">
-            <span className="font-display font-black text-2xl text-white">18.4%</span>
+            <span className="font-display font-black text-2xl text-white">{sansRiskPercent}%</span>
             <span className="text-[10px] text-gray-400">OCT Retinal Nerve: 98 μm</span>
           </div>
 
           <div className="w-full bg-black/60 h-2 rounded-full overflow-hidden border border-white/5">
-            <div className="bg-gradient-to-r from-bio-cyan to-amber-400 h-full" style={{ width: '18.4%' }} />
+            <div className="bg-gradient-to-r from-bio-cyan to-amber-400 h-full" style={{ width: `${sansRiskPercent}%` }} />
           </div>
           <p className="text-[10px] text-gray-400">Cephalad fluid redistribution mitigated by strict cabin pCO₂ control.</p>
         </div>

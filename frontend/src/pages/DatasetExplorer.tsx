@@ -5,7 +5,6 @@ import {
   ExternalLink,
   Download,
   Search,
-  Filter,
   Layers,
   Dna,
   Calendar,
