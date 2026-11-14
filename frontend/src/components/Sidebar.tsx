@@ -116,19 +116,34 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      {/* Mini Profile Badge */}
-      <div className="p-2 border-t border-cyan-500/20 bg-black/30 m-1.5 rounded-lg border border-white/5">
+      {/* Mini Profile Badge & Sign Out */}
+      <div className="p-2 border-t border-cyan-500/20 bg-black/30 m-1.5 rounded-lg border border-white/5 space-y-1.5">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-sm flex-shrink-0">
             👩‍🚀
           </div>
           {!isCollapsed && (
-            <div className="overflow-hidden">
-              <div className="text-white text-[11px] font-display font-bold truncate">Dr. Sarah Chen</div>
-              <div className="text-[9px] text-cyan-400 font-mono truncate">CDR · LEO 408 KM</div>
+            <div className="overflow-hidden flex-1">
+              <div className="text-white text-[11px] font-display font-bold truncate">
+                {user?.name || 'Dr. Sarah Chen'}
+              </div>
+              <div className="text-[9px] text-cyan-400 font-mono truncate">
+                {user?.astronautId || 'ASTRO001'} · LEO 408 KM
+              </div>
             </div>
           )}
         </div>
+
+        <button
+          onClick={handleLogout}
+          title="Sign Out / Disconnect BioLink"
+          className={`w-full flex items-center justify-center gap-1.5 py-1 px-2 rounded bg-red-950/40 hover:bg-red-900/50 border border-red-500/30 text-red-300 hover:text-white text-[10px] font-mono transition-colors ${
+            isCollapsed ? 'px-0' : ''
+          }`}
+        >
+          <LogOut size={12} />
+          {!isCollapsed && <span>SIGN OUT</span>}
+        </button>
       </div>
     </aside>
   )

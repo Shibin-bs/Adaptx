@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Clock, Wifi, WifiOff, Bell, Shield, Radio, Activity } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Clock, Wifi, WifiOff, Bell, Shield, Radio, Activity, LogOut } from 'lucide-react'
 import { fetchHealth } from '../api/client'
+import { useDemoAuth } from '../context/DemoAuthContext'
 
 export default function TopBar() {
   const [time, setTime] = useState(new Date())
   const [backendOnline, setBackendOnline] = useState<boolean | null>(true)
   const [hasUnreadAlerts, setHasUnreadAlerts] = useState(true)
+  const { user, logout } = useDemoAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
@@ -46,8 +55,9 @@ export default function TopBar() {
 
         {/* Commander Status Pill */}
         <div className="hidden lg:flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-black/30 border border-white/5 text-[11px] font-mono">
-          <span className="text-gray-500">CDR:</span>
-          <span className="text-white font-medium">DR. SARAH CHEN</span>
+          <span className="text-gray-500">CREW:</span>
+          <span className="text-white font-medium">{user?.name || 'DR. SARAH CHEN'}</span>
+          <span className="text-cyan-400 font-bold text-[10px]">({user?.astronautId || 'ASTRO001'})</span>
           <span className="text-bio-cyan text-[10px] bg-bio-cyan/10 px-1.5 py-0.5 rounded border border-bio-cyan/30">
             NOMINAL
           </span>
@@ -108,6 +118,16 @@ export default function TopBar() {
           {hasUnreadAlerts && (
             <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-amber-400 animate-ping" />
           )}
+        </button>
+
+        {/* Sign Out / Disconnect BioLink */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-950/40 hover:bg-red-900/50 border border-red-500/30 text-red-300 hover:text-white transition-colors"
+          title="Sign Out / Disconnect BioLink"
+        >
+          <LogOut size={13} />
+          <span className="hidden sm:inline text-[11px] font-bold">LOGOUT</span>
         </button>
       </div>
     </header>
