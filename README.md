@@ -17,12 +17,21 @@ C:\Adaptx\
 ├── frontend/                     # React 19 + Vite + TypeScript + Tailwind CSS
 │   ├── src/
 │   │   ├── api/client.ts         # Axios REST API client & WebSocket URL resolver
+│   │   ├── context/
+│   │   │   └── DemoAuthContext.tsx # Demo authentication, session persistence & default accounts
 │   │   ├── components/           # UI & 3D Components
+│   │   │   ├── EarthScene.tsx    # Cinematic Photorealistic 3D Earth (NASA 2048 textures, atmosphere glow, stars)
+│   │   │   ├── ProtectedRoute.tsx# Session guard for spaceflight workstations
+│   │   │   ├── auth/             # Astronaut Authentication Components
+│   │   │   │   ├── AuthenticationModal.tsx # Glassmorphism mission gate modal
+│   │   │   │   ├── LoginForm.tsx           # Astronaut ID & passcode validation with auto-fill
+│   │   │   │   └── SignupForm.tsx          # New crewmember registration & duplicate check
 │   │   │   ├── HumanHologram.tsx # Full-Screen 3D Anatomy (R3F + Three.js + floating 3D health markers)
-│   │   │   ├── Sidebar.tsx       # Collapsible space medical navigation sidebar
-│   │   │   ├── TopBar.tsx        # Mission status bar (UTC, FD 142, ECLSS, Comm sync)
+│   │   │   ├── Sidebar.tsx       # Collapsible space medical navigation sidebar & sign-out
+│   │   │   ├── TopBar.tsx        # Mission status bar (UTC, FD 142, ECLSS, crew pill, sign-out)
 │   │   │   └── Layout.tsx        # Responsive grid layout with global vertical scrolling
-│   │   └── pages/                # 11 Dedicated Spaceflight Workstations
+│   │   └── pages/                # Cinematic Landing & 11 Spaceflight Workstations
+│   │       ├── LandingPage.tsx             # Cinematic Earth Introduction & Mission Entry
 │   │       ├── Dashboard.tsx               # Full-screen 3D anatomical twin & telemetry command center
 │   │       ├── DigitalTwin.tsx             # 3D subsystem isolation & Kalman filter monitor
 │   │       ├── HealthMonitoring.tsx        # 1Hz live WebSocket telemetry station & sensor trends
@@ -35,7 +44,9 @@ C:\Adaptx\
 │   │       ├── ModelPerformance.tsx        # ML architecture benchmarks & validation metrics
 │   │       ├── AstronautProfile.tsx        # CDR Dr. Sarah Chen biomedical baseline & EVA log
 │   │       └── Settings.tsx                # Telemetry frequency & alarm threshold configuration
-│   └── public/models/            # Open Anatomy 3D GLB assets (Meshopt-compressed)
+│   └── public/
+│       ├── models/               # Open Anatomy 3D GLB assets (Meshopt-compressed)
+│       └── textures/earth/       # Photorealistic NASA Earth maps (day, clouds, lights, normal, specular)
 │
 ├── backend/                      # Python 3.11+ Modular FastAPI Application
 │   ├── main.py                   # FastAPI server entry point with lifespan DB initialization
@@ -121,17 +132,35 @@ npm run dev
 ```
 - Web Application: `http://localhost:5173/`
 
-### 4. Running Automated Verification Suite
+### 4. Demo Authentication Credentials
+- **Astronaut ID**: `ASTRO001`
+- **Security Passcode**: `ADAPT2026`
+*(Pre-seeded in `localStorage`; users can also register custom Astronaut IDs with duplicate ID prevention).*
+
+### 5. Running Automated Verification Suites
 ```powershell
+# Verify Landing Page, 3D Earth, Authentication, Sessions, and Mobile View
+node C:\Adaptx\test_landing_and_auth.js
+
+# Verify Form Validation and Duplicate Rejections
+node C:\Adaptx\test_form_validation.js
+
+# Verify All 13 Protected Mission Workstations
 node C:\Adaptx\test_all_pages.js
 ```
-Runs headless Puppeteer across all 8 main routes, verifies DOM hydration, captures high-resolution screenshots, and confirms zero console errors or page crashes.
+Runs headless Puppeteer across the entire application, verifies 3D canvas hydration, captures high-resolution screenshots, and confirms zero console errors or page crashes.
 
 ---
 
 ## Key Capabilities
 
-1. **Full-Screen 3D Anatomical Digital Twin**:
+1. **Cinematic Earth-to-Space Landing & Mission Gate**:
+   - Grand photorealistic 3D Earth rendered with NASA 2048x1024 Blue Marble surface maps, elevation normal maps, ocean specular reflectance, rotating atmospheric clouds, night-side city lights, and an electric-blue Rayleigh atmospheric Fresnel glow.
+   - Deep-space starfield with 2,800+ twinkling stars (strictly Earth-only environment; zero other planets).
+   - Glassmorphism authentication console with Astronaut Login, Registration, duplicate rejection, and persistent demo sessions.
+   - Cinematic entry sequence: atmospheric warp traversal on successful authentication transitioning into mission control.
+
+2. **Full-Screen 3D Anatomical Digital Twin**:
    - Renders a realistic, proportional 3D human anatomy model occupying >80% of viewport height.
    - 7 floating clinical health markers anchored in 3D space with glowing cyan connector lines that dynamically follow the model as it rotates 360°.
    - Interactive organ selection (Brain, Heart, Spine, Lungs, Liver, Eyes) with clinical telemetry slide-over drawers.
