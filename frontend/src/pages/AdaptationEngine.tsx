@@ -54,7 +54,6 @@ interface AdaptationData {
 
 export default function AdaptationEngine() {
   const [data, setData] = useState<AdaptationData | null>(null)
-  const [loading, setLoading] = useState(true)
   const [inferring, setInferring] = useState(false)
   const [evalResult, setEvalResult] = useState<any>(null)
   const [activeTab, setActiveTab] = useState<'overview' | 'simulator' | 'phases'>('overview')
@@ -78,11 +77,9 @@ export default function AdaptationEngine() {
   }, [])
 
   const loadAdaptationData = () => {
-    setLoading(true)
     fetchAdaptationIndex()
       .then((res) => {
         setData(res)
-        setLoading(false)
       })
       .catch((err) => {
         console.error('Failed to load adaptation index:', err)
@@ -126,7 +123,6 @@ export default function AdaptationEngine() {
           classification: 'ACTIVE_ADAPTATION',
           note: 'Research classification derived from multi-target XGBoost models.',
         })
-        setLoading(false)
       })
   }
 
