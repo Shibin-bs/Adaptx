@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   User,
@@ -15,10 +15,12 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  LogOut,
 } from 'lucide-react'
+import { useDemoAuth } from '../context/DemoAuthContext'
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Mission Dashboard', exact: true },
+  { to: '/dashboard', icon: LayoutDashboard, label: 'Mission Dashboard' },
   { to: '/profile', icon: User, label: 'Astronaut Profile' },
   { to: '/digital-twin', icon: Box, label: 'Digital Twin' },
   { to: '/health', icon: Activity, label: 'Health Monitoring' },
@@ -34,6 +36,13 @@ const navItems = [
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
+  const { user, logout } = useDemoAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
 
   return (
     <aside
